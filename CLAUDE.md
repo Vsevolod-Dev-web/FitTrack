@@ -215,5 +215,51 @@
 - При нажатии «Начать» → показывается только форма (чтобы не отвлекаться)
 - История отсортирована по дате убыванием
 
-### ⬜ Фаза 6 — Dashboard + статистика
-Все виджеты, Recharts-графики, прогноз цели
+### ✅ Фаза 6 — Dashboard + Статистика (DONE)
+
+**`client/src/hooks/use-dashboard-data.js`** — агрегатный хук:
+- Загружает bodyLogs, todayNutrition, allNutrition, trainingLogs параллельно
+- staleTime настроен для оптимизации кэширования
+
+**`client/src/pages/stats/chart-helpers.js`** — чистые функции данных:
+- `buildWeightSeries` — с 7-дневным скользящим средним (`ma`)
+- `buildCompositionSeries` — leanMass + fatMass per date
+- `buildMeasurementSeries` + `MEASURE_LINES` — 5 обхватов с цветами
+- `buildCalorieSeries` — факт vs план per date
+- `calcAvgMacros` — средние КБЖУ за период
+- `buildMuscleTonnage` — тоннаж по группам мышц (сортировка desc)
+- `buildExerciseProgress` — 1RM по выбранному упражнению
+- `calcStreak` — стрик дней ведения дневника питания
+- `calcActualWeeklyChange` — актуальный темп кг/неделя (последние 4 нед)
+- `buildSparkline` — 30-дневный мини-график для Dashboard
+
+**`client/src/pages/stats/body-tab.jsx`**:
+- `WeightChart` — ComposedChart: Bar (вес) + Line (тренд MA)
+- `CompositionChart` — AreaChart с стекингом (сухая / жировая масса)
+- `MeasurementsChart` — MultiLine для 5 обхватов
+
+**`client/src/pages/stats/nutrition-tab.jsx`**:
+- `CaloriesChart` — BarChart факт/план + ReferenceLine на цели
+- `AvgMacros` — grid 4 показателя за период с прогресс-плашками
+
+**`client/src/pages/stats/training-tab.jsx`**:
+- `MuscleTonnageChart` — горизонтальный BarChart по мышечным группам
+- `ExerciseProgressChart` — LineChart 1RM, выбор упражнения через select
+
+**`client/src/pages/stats/export-tab.jsx`**:
+- 4 кнопки скачивания по модулям (body, nutrition, training, profile)
+- «Скачать всё одним файлом» → fittrack-export-YYYY-MM-DD.json
+
+**`client/src/pages/StatsPage.jsx`** — полная реализация:
+- Переключатель периода: 7д / 30д / 90д / Всё
+- 4 вкладки: Тело / Питание / Тренировки / Экспорт
+- filterByPeriod применяется к данным каждой вкладки
+
+**`client/src/pages/Dashboard.jsx`** — полная реализация (8 виджетов):
+- `CaloriesTodayWidget` — прогресс-бар ккал за сегодня (факт/цель)
+- `MacrosTodayWidget` — 3 прогресс-бара Б/Ж/У (факт/цель)
+- `WeightSparklineWidget` — Recharts sparkline 30 дней + темп кг/нед
+- `ForecastWidget` — прогноз «через N недель» до цели
+- `RecompWidget` — дуальный трекер (сухая масса / % жира) для режима рекомпозиции
+- `StreakWidget` — стрик питания + средние ккал/белок
+- Быстрые метрики: TDEE, белок, кол-во тренировок
