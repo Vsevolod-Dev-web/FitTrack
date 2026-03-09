@@ -1,5 +1,6 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
 import { Activity, BarChart2, Dumbbell, Salad, Settings, User } from 'lucide-react';
+import { useAppInit } from './hooks/use-app-init.js';
 import Dashboard from './pages/Dashboard.jsx';
 import BodyPage from './pages/body/BodyPage.jsx';
 import NutritionPage from './pages/nutrition/NutritionPage.jsx';
@@ -50,6 +51,8 @@ function HeaderLeaves() {
 }
 
 export default function App() {
+  useAppInit();
+
   return (
     <div className="min-h-screen bg-stone-50 flex flex-col">
       {/* ── Шапка ── */}
