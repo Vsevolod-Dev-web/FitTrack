@@ -1,0 +1,10 @@
+data/
+!data/.gitkeep
+.env
+.env.local
+.env.*.local
+*.env
+node_modules/
+client/node_modules/
+dist/
+client/dist/
