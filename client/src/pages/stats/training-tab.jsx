@@ -64,7 +64,10 @@ export function ExerciseProgressChart({ trainingLogs, days }) {
   return (
     <div className="card space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Прогресс: 1RM</p>
+        <div>
+          <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Прогресс силы</p>
+          <p className="text-[10px] text-stone-400">расчётный максимум на 1 повторение (1RM)</p>
+        </div>
         {names.length > 0 && (
           <select
             className="input text-xs py-1 px-2 max-w-[200px]"
@@ -88,7 +91,7 @@ export function ExerciseProgressChart({ trainingLogs, days }) {
             <YAxis tick={{ fontSize: 10, fill: '#a8a29e' }} domain={['auto', 'auto']} />
             <Tooltip content={<ChartTooltip />} />
             <Line
-              type="monotone" dataKey="oneRM" name="1RM"
+              type="monotone" dataKey="oneRM" name="Максимум (1RM)"
               stroke="#16a34a" strokeWidth={2.5} dot={{ r: 4, fill: '#16a34a' }} unit="кг"
             />
           </LineChart>

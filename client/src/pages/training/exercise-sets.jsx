@@ -5,6 +5,7 @@ import {
   MUSCLE_GROUPS, MUSCLE_COLOR, MUSCLE_LABEL,
   exerciseTonnage, exerciseBest1RM, newSet, fmtDate,
 } from './training-utils.js';
+import { InfoTip } from '../../components/info-tip.jsx';
 
 // ─── Предыдущее выполнение ────────────────────────────────────────────────────
 
@@ -34,8 +35,16 @@ function PreviousPerformance({ prev }) {
         })}
       </div>
       <div className="flex gap-3 pt-1 border-t border-stone-200 text-stone-500">
-        <span>Тоннаж: <b className="text-stone-700">{tonnage}</b> кг</span>
-        {best1rm && <span>1RM: <b className="text-forest-700">{best1rm}</b> кг</span>}
+        <span>
+          <InfoTip tip="Суммарный объём нагрузки: сумма (вес × повторения)">Тоннаж</InfoTip>:{' '}
+          <b className="text-stone-700">{tonnage}</b> кг
+        </span>
+        {best1rm && (
+          <span>
+            <InfoTip tip="Расчётный максимум на 1 повторение">1RM</InfoTip>:{' '}
+            <b className="text-forest-700">{best1rm}</b> кг
+          </span>
+        )}
       </div>
     </div>
   );
@@ -197,8 +206,17 @@ export default function ExerciseSets({ exercise, prev, suggestions, onUpdate, on
       <div className="space-y-1.5">
         {/* Заголовок колонок */}
         <div className="grid grid-cols-[22px_1fr_1fr_1fr_40px_22px] gap-1.5 px-0.5">
-          {['№', 'Вес', 'Повторы', 'RPE', '1RM', ''].map((h, i) => (
-            <span key={i} className="text-[10px] text-stone-400 text-center">{h}</span>
+          {[
+            { label: '№',      tip: null },
+            { label: 'Вес',    tip: null },
+            { label: 'Повторы',tip: null },
+            { label: 'RPE',    tip: 'Шкала субъективной нагрузки: 6 — очень легко, 8 — тяжело, 10 — до отказа' },
+            { label: '1RM',    tip: 'Расчётный максимум на 1 повторение (формула Бжицки)' },
+            { label: '',       tip: null },
+          ].map(({ label, tip }, i) => (
+            <span key={i} className="text-[10px] text-stone-400 text-center">
+              {tip ? <InfoTip tip={tip}>{label}</InfoTip> : label}
+            </span>
           ))}
         </div>
 
@@ -227,8 +245,16 @@ export default function ExerciseSets({ exercise, prev, suggestions, onUpdate, on
 
         {tonnage > 0 && (
           <div className="flex gap-3 text-xs text-stone-500">
-            <span>Тоннаж: <b className="text-stone-700">{tonnage}</b> кг</span>
-            {best1rm && <span>1RM: <b className="text-forest-700">{best1rm}</b> кг</span>}
+            <span>
+              <InfoTip tip="Суммарный объём нагрузки: сумма (вес × повторения) по всем подходам">Тоннаж</InfoTip>:{' '}
+              <b className="text-stone-700">{tonnage}</b> кг
+            </span>
+            {best1rm && (
+              <span>
+                <InfoTip tip="Расчётный максимум на 1 повторение (формула Бжицки)">1RM</InfoTip>:{' '}
+                <b className="text-forest-700">{best1rm}</b> кг
+              </span>
+            )}
           </div>
         )}
       </div>

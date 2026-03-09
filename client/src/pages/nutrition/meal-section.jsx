@@ -15,9 +15,9 @@ function FoodItemRow({ item, onRemove }) {
         </div>
         <div className="flex gap-2 mt-0.5 text-[11px] text-stone-400">
           <span className="text-stone-600 font-medium">{item.calories} ккал</span>
-          <span>Б {item.protein}г</span>
-          <span>Ж {item.fat}г</span>
-          <span>У {item.carbs}г</span>
+          <span title="Белок">{item.protein}г б</span>
+          <span title="Жиры">{item.fat}г ж</span>
+          <span title="Углеводы">{item.carbs}г у</span>
         </div>
       </div>
       <button
@@ -130,9 +130,9 @@ function SearchPanel({ onAdd, onClose }) {
               <p className="text-sm font-semibold text-stone-800 truncate">{selected.name}</p>
               <p className="text-xs text-stone-400">
                 {selected.per100g.calories} ккал/100г ·
-                Б {selected.per100g.protein}г ·
-                Ж {selected.per100g.fat}г ·
-                У {selected.per100g.carbs}г
+                белок {selected.per100g.protein}г ·
+                жиры {selected.per100g.fat}г ·
+                углев. {selected.per100g.carbs}г
               </p>
             </div>
             <button type="button" onClick={() => setSelected(null)}
@@ -159,7 +159,7 @@ function SearchPanel({ onAdd, onClose }) {
             {preview && (
               <div className="bg-forest-50 rounded-lg px-3 py-2 text-xs text-stone-600 shrink-0">
                 <span className="font-bold text-forest-700">{preview.calories}</span> ккал ·
-                Б <span className="font-medium">{preview.protein}</span>г
+                белок <span className="font-medium">{preview.protein}</span>г
               </div>
             )}
           </div>
@@ -241,7 +241,7 @@ export default function MealSection({ meal, onAddItem, onRemoveItem }) {
               <span className="font-semibold text-stone-800 text-sm">{meal.name}</span>
               {meal.items.length > 0 && (
                 <span className="text-xs text-stone-400 tabular-nums">
-                  {mealCalories} ккал · Б {mealProtein}г
+                  {mealCalories} ккал · белок {mealProtein}г
                 </span>
               )}
             </div>

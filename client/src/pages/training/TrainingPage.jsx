@@ -23,13 +23,13 @@ function WorkoutStats({ logs }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
       {[
-        { label: 'Тренировок',   value: totalSessions,  unit: '' },
-        { label: 'Часов',        value: (totalMinutes / 60).toFixed(1), unit: 'ч' },
-        { label: 'Тоннаж всего', value: totalTonnage > 1000 ? `${(totalTonnage/1000).toFixed(1)}т` : `${totalTonnage}`, unit: totalTonnage > 1000 ? '' : 'кг' },
-        { label: 'Чаще всего',   value: topTypeInfo ? `${topTypeInfo.emoji} ${topTypeInfo.label}` : '—', unit: '' },
-      ].map(({ label, value, unit }) => (
+        { label: 'Тренировок',   value: totalSessions,  unit: '', tip: null },
+        { label: 'Часов',        value: (totalMinutes / 60).toFixed(1), unit: 'ч', tip: null },
+        { label: 'Поднято всего', value: totalTonnage > 1000 ? `${(totalTonnage/1000).toFixed(1)}т` : `${totalTonnage}`, unit: totalTonnage > 1000 ? '' : 'кг', tip: 'Суммарный тоннаж: вес × повторения по всем тренировкам' },
+        { label: 'Чаще всего',   value: topTypeInfo ? `${topTypeInfo.emoji} ${topTypeInfo.label}` : '—', unit: '', tip: null },
+      ].map(({ label, value, unit, tip }) => (
         <div key={label} className="card">
-          <p className="text-xs text-stone-400">{label}</p>
+          <p className="text-xs text-stone-400" title={tip ?? undefined}>{label}</p>
           <p className="text-lg font-bold text-stone-800 tabular-nums mt-0.5">
             {value}<span className="text-sm font-normal text-stone-400 ml-0.5">{unit}</span>
           </p>

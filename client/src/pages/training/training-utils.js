@@ -7,7 +7,7 @@ import { calc1RM, calcVolume } from '../../utils/calculations.js';
 export const TRAINING_TYPES = [
   { value: 'strength',   label: 'Силовая',  emoji: '🏋️' },
   { value: 'cardio',     label: 'Кардио',   emoji: '🏃' },
-  { value: 'hiit',       label: 'HIIT',     emoji: '⚡' },
+  { value: 'hiit',       label: 'Интервальная (HIIT)', emoji: '⚡' },
   { value: 'stretching', label: 'Растяжка', emoji: '🧘' },
 ];
 

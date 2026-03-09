@@ -43,7 +43,7 @@ export function WeightChart({ bodyLogs, days }) {
           <Legend wrapperStyle={{ fontSize: 11 }} />
           <Bar dataKey="weight" name="Вес" fill="#d6d3d1" radius={[3, 3, 0, 0]} unit="кг" />
           <Line
-            type="monotone" dataKey="ma" name="Тренд (7д)"
+            type="monotone" dataKey="ma" name="Скользящее среднее (7 дней)"
             stroke="#16a34a" strokeWidth={2} dot={false} unit="кг"
           />
         </ComposedChart>

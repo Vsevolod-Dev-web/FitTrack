@@ -171,7 +171,7 @@ function DaySummary({ totals, targets }) {
           { label: 'Калории', actual: totals.calories, rem: remaining.calories, unit: 'ккал' },
           { label: 'Белок',   actual: totals.protein,  rem: remaining.protein,  unit: 'г'    },
           { label: 'Жиры',    actual: totals.fat,      rem: remaining.fat,      unit: 'г'    },
-          { label: 'Углев.',  actual: totals.carbs,    rem: remaining.carbs,    unit: 'г'    },
+          { label: 'Углеводы',actual: totals.carbs,    rem: remaining.carbs,    unit: 'г'    },
         ].map(({ label, actual, rem, unit }) => (
           <div key={label}>
             <p className="text-[10px] text-stone-400">{label}</p>

@@ -92,9 +92,9 @@ function MacrosTodayWidget({ todayLogs, macros }) {
   const totals = todayTotals(todayLogs);
 
   const items = [
-    { label: 'Б', actual: totals?.protein ?? 0, target: macros?.protein ?? 0, color: 'bg-forest-500' },
-    { label: 'Ж', actual: totals?.fat     ?? 0, target: macros?.fat     ?? 0, color: 'bg-amber-400'  },
-    { label: 'У', actual: totals?.carbs   ?? 0, target: macros?.carbs   ?? 0, color: 'bg-sky-400'    },
+    { label: 'Белок',    actual: totals?.protein ?? 0, target: macros?.protein ?? 0, color: 'bg-forest-500' },
+    { label: 'Жиры',    actual: totals?.fat     ?? 0, target: macros?.fat     ?? 0, color: 'bg-amber-400'  },
+    { label: 'Углеводы',actual: totals?.carbs   ?? 0, target: macros?.carbs   ?? 0, color: 'bg-sky-400'    },
   ];
 
   return (
@@ -271,7 +271,7 @@ function StreakWidget({ allNutrition }) {
       </div>
       {avg && (
         <p className="text-[11px] text-stone-400">
-          Ср. {avg.calories} ккал · {avg.protein}г белка
+          Среднее: {avg.calories} ккал · {avg.protein}г белка
         </p>
       )}
     </div>
@@ -367,7 +367,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-3 gap-3">
           <Widget
             icon={Droplets} iconColor="text-sky-500" iconBg="bg-sky-50"
-            label="TDEE"
+            label="Суточная норма (TDEE)"
             value={derived.tdee} unit="ккал"
           />
           <Widget

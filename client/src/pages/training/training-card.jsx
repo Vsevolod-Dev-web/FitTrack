@@ -5,6 +5,7 @@ import {
   TRAINING_TYPES, MUSCLE_COLOR, MUSCLE_LABEL,
   exerciseTonnage, exerciseBest1RM, totalWorkoutTonnage, fmtDate,
 } from './training-utils.js';
+import { InfoTip } from '../../components/info-tip.jsx';
 
 // ─── Карточка упражнения ──────────────────────────────────────────────────────
 
@@ -40,8 +41,18 @@ function ExerciseCard({ exercise }) {
       <p className="text-xs text-stone-500 font-mono tabular-nums">{setsSummary}</p>
 
       <div className="flex gap-3 text-xs text-stone-400">
-        {tonnage > 0  && <span>Тоннаж <b className="text-stone-600">{tonnage}</b> кг</span>}
-        {best1rm      && <span>1RM <b className="text-forest-600">{best1rm}</b> кг</span>}
+        {tonnage > 0 && (
+          <span>
+            <InfoTip tip="Суммарный объём: вес × повторения">Тоннаж</InfoTip>{' '}
+            <b className="text-stone-600">{tonnage}</b> кг
+          </span>
+        )}
+        {best1rm && (
+          <span>
+            <InfoTip tip="Расчётный максимум на 1 повторение">1RM</InfoTip>{' '}
+            <b className="text-forest-600">{best1rm}</b> кг
+          </span>
+        )}
       </div>
     </div>
   );
@@ -104,12 +115,13 @@ export default function TrainingCard({ log, onDelete }) {
       <div className="flex gap-4 text-xs flex-wrap">
         {log.exercises?.length > 0 && (
           <span className="text-stone-500">
-            <b className="text-stone-700">{log.exercises.length}</b> упр.
+            <b className="text-stone-700">{log.exercises.length}</b> упражн.
           </span>
         )}
         {tonnage > 0 && (
           <span className="text-stone-500">
-            Тоннаж <b className="text-stone-700">{tonnage}</b> кг
+            <InfoTip tip="Суммарный объём нагрузки: вес × повторения">Тоннаж</InfoTip>{' '}
+            <b className="text-stone-700">{tonnage}</b> кг
           </span>
         )}
         {log.cardio?.type && (
@@ -126,7 +138,7 @@ export default function TrainingCard({ log, onDelete }) {
           if (!rm) return null;
           return (
             <span key={ex.name} className="text-stone-500">
-              {ex.name}: <b className="text-forest-600">{rm} кг</b>
+              {ex.name}: <b className="text-forest-600" title="Расчётный максимум на 1 повторение">{rm} кг (1RM)</b>
             </span>
           );
         })}
