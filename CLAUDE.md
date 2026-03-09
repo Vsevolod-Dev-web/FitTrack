@@ -84,8 +84,30 @@
 - `.gitignore` — data/, .env, node_modules, dist
 - `.env.example` — шаблон переменных окружения
 
-### ⬜ Фаза 2 — Данные и формулы
-Unit-тесты (vitest) для calculations.js
+### ✅ Фаза 2 — Данные и формулы (DONE)
+
+**`client/src/utils/calculations.js`** — полная реализация:
+- `calcBMR(weight, height, age, sex)` — Миффлин-Сан Жеор
+- `calcTDEE(bmr, activityLevel)` — 5 уровней активности
+- `calcTargetCalories(tdee, mode, intensity)` — cutting/bulking/recomposition × moderate/standard/aggressive
+- `calcRecompCalories(tdee, isTrainingDay)` — цикличность тренировочный (+100) / отдых (−200)
+- `calcLeanMass(weight, bodyFatPct)` / `calcFatMass` / `calcBodyComposition`
+- `calcMacros(targetCalories, leanMass, weight, mode)` — белок 2.2 г (cutting/bulking) или 2.6 г (recomposition) × сухую массу
+- `calc1RM(weight, reps)` — Brzycki, граничные случаи (reps≥37 → null)
+- `calcVolume(sets)` — тоннаж
+- `calcWeeksToGoal(current, target, weeklyChange)` — прогноз
+
+**`client/src/utils/calculations.test.js`** — 60 unit-тестов (vitest 1.x):
+- Покрытие: все 9 функций + экспортированные константы
+- Граничные значения: нулевые веса, нулевой темп, reps≥37, отрицательные дельты
+
+**Дизайн — светлая тема «Лесное утро»**
+- Цвета: stone-50 фон, white карточки, forest-600 акцент (кастомная палитра)
+- SVG-листья в шапке (три листа + ягоды + стебель)
+- `tailwind.config.js` — кастомная палитра `forest`
+- `index.css` — компоненты: `.card`, `.input`, `.btn-primary`, `.btn-secondary`, `.badge-*`, `.empty-state`
+- Dashboard: MetricCard + MacroBar прогресс-бары
+- SettingsPage: секции с эмодзи-иконками
 
 ### ⬜ Фаза 3 — Профиль + замеры тела
 Полный UI: форма замеров с дельтами, история, фото-прогресс

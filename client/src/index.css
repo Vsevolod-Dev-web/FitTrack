@@ -2,14 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .input {
-    @apply w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-gray-100 text-sm focus:outline-none focus:border-emerald-500 transition-colors;
+@layer base {
+  body {
+    @apply bg-stone-50 text-stone-800 antialiased;
   }
+}
+
+@layer components {
+  /* ── Inputs ── */
+  .input {
+    @apply w-full bg-white border border-stone-200 rounded-xl px-3 py-2
+           text-stone-800 text-sm placeholder-stone-400
+           focus:outline-none focus:border-forest-500 focus:ring-2 focus:ring-forest-100
+           transition-all;
+  }
+
+  /* ── Buttons ── */
   .btn-primary {
-    @apply bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm;
+    @apply bg-forest-600 hover:bg-forest-700 active:bg-forest-800
+           disabled:opacity-50 disabled:cursor-not-allowed
+           text-white font-semibold px-5 py-2.5 rounded-xl
+           transition-all shadow-sm hover:shadow-md text-sm;
   }
   .btn-secondary {
-    @apply bg-gray-800 hover:bg-gray-700 text-gray-100 font-medium px-4 py-2 rounded-lg transition-colors text-sm border border-gray-700;
+    @apply bg-white hover:bg-stone-50 active:bg-stone-100
+           text-stone-700 font-medium px-4 py-2 rounded-xl
+           border border-stone-200 hover:border-stone-300
+           transition-all text-sm;
+  }
+  .btn-ghost {
+    @apply text-forest-600 hover:text-forest-700 hover:bg-forest-50
+           px-3 py-1.5 rounded-lg transition-all text-sm font-medium;
+  }
+
+  /* ── Cards ── */
+  .card {
+    @apply bg-white rounded-2xl border border-stone-100 shadow-sm p-4;
+  }
+  .card-hover {
+    @apply card hover:border-forest-200 hover:shadow-md transition-all cursor-pointer;
+  }
+
+  /* ── Badges ── */
+  .badge-green  { @apply inline-flex items-center gap-1 bg-forest-50 text-forest-700 border border-forest-200 text-xs font-medium px-2.5 py-0.5 rounded-full; }
+  .badge-amber  { @apply inline-flex items-center gap-1 bg-amber-50  text-amber-700  border border-amber-200  text-xs font-medium px-2.5 py-0.5 rounded-full; }
+  .badge-red    { @apply inline-flex items-center gap-1 bg-red-50    text-red-700    border border-red-200    text-xs font-medium px-2.5 py-0.5 rounded-full; }
+  .badge-stone  { @apply inline-flex items-center gap-1 bg-stone-100 text-stone-600  border border-stone-200  text-xs font-medium px-2.5 py-0.5 rounded-full; }
+
+  /* ── Section title ── */
+  .section-title {
+    @apply text-xl font-bold text-stone-800 tracking-tight;
+  }
+  .page-title {
+    @apply text-2xl font-bold text-stone-800 tracking-tight;
+  }
+
+  /* ── Empty state ── */
+  .empty-state {
+    @apply text-center py-12 text-stone-400 text-sm;
   }
 }

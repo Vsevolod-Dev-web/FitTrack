@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { calcBMR, calcTDEE, calcTargetCalories, calcMacros } from '../utils/calculations.js';
+import { calcBMR, calcTDEE, calcTargetCalories, calcMacros, calcLeanMass } from '../utils/calculations.js';
 
 export const useAppStore = create((set, get) => ({
   profile: null,
@@ -27,9 +27,9 @@ export const useAppStore = create((set, get) => ({
     const tdee = calcTDEE(bmr, profile.activityLevel);
     const targetCalories = calcTargetCalories(tdee, profile.currentMode);
     const leanMass = latestBodyLog.bodyFat
-      ? latestBodyLog.weight * (1 - latestBodyLog.bodyFat / 100)
-      : latestBodyLog.weight * 0.82;
-    const macros = calcMacros(targetCalories, leanMass, latestBodyLog.weight);
+      ? calcLeanMass(latestBodyLog.weight, latestBodyLog.bodyFat)
+      : Math.round(latestBodyLog.weight * 0.82 * 10) / 10;
+    const macros = calcMacros(targetCalories, leanMass, latestBodyLog.weight, profile.currentMode);
     set({ derived: { bmr, tdee, targetCalories, macros, leanMass } });
   },
 }));

@@ -8,6 +8,7 @@
     "dev:server": "node --watch server/index.js",
     "dev:all": "concurrently --names \"CLIENT,SERVER\" --prefix-colors \"cyan,yellow\" \"npm run dev:client\" \"npm run dev:server\"",
     "install:all": "npm install && npm install --prefix client",
+    "test": "npm test --prefix client",
     "start": "npm run dev:all"
   },
   "dependencies": {
