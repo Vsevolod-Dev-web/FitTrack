@@ -137,8 +137,45 @@
 
 **Server `server/routes/body.js`** — GET / POST / DELETE (готово с Фазы 1)
 
-### ⬜ Фаза 4 — Питание
-Дневной журнал, поиск продуктов, кольцевые диаграммы
+### ✅ Фаза 4 — Питание (DONE)
+
+**`client/src/pages/nutrition/nutrition-utils.js`** — чистые функции:
+- `initLog(date)` — инициализирует пустой лог с 4 стандартными приёмами
+- `calcItemMacros(per100g, grams)` — расчёт КБЖУ для порции
+- `calcDayTotals(meals)` — пересчёт итогов дня
+- `addItemToMeal / removeItemFromMeal / setWater`
+- `macroStatus(actual, target)` — good/warn/over по ТЗ §6.3 (±5%/±15%)
+
+**`client/src/hooks/use-nutrition-day.js`** — управление дневным журналом:
+- POST при первом добавлении, PUT при обновлении — без лишних запросов
+- Оптимистичный setLog до ответа сервера
+
+**`client/src/hooks/use-food-db.js`** — поиск продуктов:
+- Локальный поиск (200 мс debounce), при < 4 результатов → OFacts (400 мс)
+- `saveExternalToDb` — автосохранение OFacts продуктов в личную базу
+
+**`client/src/pages/nutrition/macro-rings.jsx`** — Recharts:
+- Кольцо калорий + горизонтальный прогресс-бар (крупный)
+- 3 кольца макросов (белок/жир/углеводы)
+- Цветовой статус: forest-600 = норма, amber = ±15%, red = >15%
+- Поддержка случая "превышение нормы" (полное кольцо)
+
+**`client/src/pages/nutrition/meal-section.jsx`** — приём пищи:
+- 4 стандартных приёма с эмодзи + кнопка «Добавить»
+- `SearchPanel`: поиск → выбор → ввод граммов → превью макросов → добавить
+- Группы результатов: «Моя база» (зелёная) / «Open Food Facts» (янтарная)
+- Удаление продукта hover-кнопкой, сворачивание секции
+
+**`client/src/pages/nutrition/water-tracker.jsx`**:
+- Быстрые кнопки +200/+300/+500 мл + ручной ввод
+- Прогресс-бар до 2500 мл
+
+**`client/src/pages/nutrition/NutritionPage.jsx`**:
+- Навигатор дней ← →, нельзя перейти в будущее
+- Русские названия дней через `date-fns/locale/ru`
+- Итог дня: факт/остаток по каждому макросу
+
+**Server:** добавлен DELETE /api/nutrition-logs/:id
 
 ### ⬜ Фаза 5 — Тренировки
 Форма тренировки, таймер, история сетов, тоннаж

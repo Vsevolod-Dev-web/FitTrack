@@ -23,6 +23,14 @@ router.post('/', async (req, res) => {
   res.status(201).json(entry);
 });
 
+router.delete('/:id', async (req, res) => {
+  const logs = await readStore('nutritionLogs');
+  const filtered = logs.filter(l => l.id !== req.params.id);
+  if (filtered.length === logs.length) return res.status(404).json({ error: 'Not found' });
+  await writeStore('nutritionLogs', filtered);
+  res.json({ ok: true });
+});
+
 router.put('/:id', async (req, res) => {
   const result = NutritionLogSchema.safeParse(req.body);
   if (!result.success) return res.status(400).json({ error: result.error.flatten() });

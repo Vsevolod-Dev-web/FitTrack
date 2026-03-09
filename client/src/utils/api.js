@@ -22,8 +22,9 @@ export const api = {
   deleteBodyLog: (id) => request('DELETE', `/body-logs/${id}`),
 
   getNutritionLogs: (date) => request('GET', `/nutrition-logs${date ? `?date=${date}` : ''}`),
-  postNutritionLog: (data) => request('POST', '/nutrition-logs', data),
-  putNutritionLog: (id, data) => request('PUT', `/nutrition-logs/${id}`, data),
+  postNutritionLog: (data) => { const { id: _, ...body } = data; return request('POST', '/nutrition-logs', body); },
+  putNutritionLog:  (id, data) => { const { id: _, ...body } = data; return request('PUT', `/nutrition-logs/${id}`, body); },
+  deleteNutritionLog: (id) => request('DELETE', `/nutrition-logs/${id}`),
 
   getTrainingLogs: () => request('GET', '/training-logs'),
   postTrainingLog: (data) => request('POST', '/training-logs', data),
